@@ -2,77 +2,79 @@ use std::env;
 use std::path::PathBuf;
 
 pub fn build() {
+    let basedir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("yara");
+
     let mut cc = cc::Build::new();
 
     cc
-        .include("../yara/libyara")
-        .include("../yara/libyara/include")
+        .include(basedir.join("libyara"))
+        .include(basedir.join("libyara/include"))
 
-        .file("../yara/libyara/ahocorasick.c")
-        .file("../yara/libyara/arena.c")
-        .file("../yara/libyara/atoms.c")
-        .file("../yara/libyara/bitmask.c")
-        .file("../yara/libyara/compiler.c")
-        .file("../yara/libyara/endian.c")
-        .file("../yara/libyara/exec.c")
-        .file("../yara/libyara/exefiles.c")
-        .file("../yara/libyara/filemap.c")
-        .file("../yara/libyara/grammar.c")
-        .file("../yara/libyara/hash.c")
-        .file("../yara/libyara/hex_grammar.c")
-        .file("../yara/libyara/hex_lexer.c")
-        .file("../yara/libyara/lexer.c")
-        .file("../yara/libyara/libyara.c")
-        .file("../yara/libyara/mem.c")
-        .file("../yara/libyara/object.c")
-        .file("../yara/libyara/parser.c")
-        .file("../yara/libyara/proc.c")
-        .file("../yara/libyara/re.c")
-        .file("../yara/libyara/re_grammar.c")
-        .file("../yara/libyara/re_lexer.c")
-        .file("../yara/libyara/rules.c")
-        .file("../yara/libyara/scan.c")
-        .file("../yara/libyara/scanner.c")
-        .file("../yara/libyara/sizedstr.c")
-        .file("../yara/libyara/stack.c")
-        .file("../yara/libyara/stopwatch.c")
-        .file("../yara/libyara/stream.c")
-        .file("../yara/libyara/strutils.c")
-        .file("../yara/libyara/threading.c")
+        .file(basedir.join("libyara/ahocorasick.c"))
+        .file(basedir.join("libyara/arena.c"))
+        .file(basedir.join("libyara/atoms.c"))
+        .file(basedir.join("libyara/bitmask.c"))
+        .file(basedir.join("libyara/compiler.c"))
+        .file(basedir.join("libyara/endian.c"))
+        .file(basedir.join("libyara/exec.c"))
+        .file(basedir.join("libyara/exefiles.c"))
+        .file(basedir.join("libyara/filemap.c"))
+        .file(basedir.join("libyara/grammar.c"))
+        .file(basedir.join("libyara/hash.c"))
+        .file(basedir.join("libyara/hex_grammar.c"))
+        .file(basedir.join("libyara/hex_lexer.c"))
+        .file(basedir.join("libyara/lexer.c"))
+        .file(basedir.join("libyara/libyara.c"))
+        .file(basedir.join("libyara/mem.c"))
+        .file(basedir.join("libyara/object.c"))
+        .file(basedir.join("libyara/parser.c"))
+        .file(basedir.join("libyara/proc.c"))
+        .file(basedir.join("libyara/re.c"))
+        .file(basedir.join("libyara/re_grammar.c"))
+        .file(basedir.join("libyara/re_lexer.c"))
+        .file(basedir.join("libyara/rules.c"))
+        .file(basedir.join("libyara/scan.c"))
+        .file(basedir.join("libyara/scanner.c"))
+        .file(basedir.join("libyara/sizedstr.c"))
+        .file(basedir.join("libyara/stack.c"))
+        .file(basedir.join("libyara/stopwatch.c"))
+        .file(basedir.join("libyara/stream.c"))
+        .file(basedir.join("libyara/strutils.c"))
+        .file(basedir.join("libyara/threading.c"))
 
-        .file("../yara/libyara/modules.c")
-        .file("../yara/libyara/modules/elf.c")
-        .file("../yara/libyara/modules/math.c")
-        .file("../yara/libyara/modules/pe.c")
-        .file("../yara/libyara/modules/pe_utils.c")
-        .file("../yara/libyara/modules/tests.c")
-        .file("../yara/libyara/modules/time.c")
+        .file(basedir.join("libyara/modules.c"))
+        .file(basedir.join("libyara/modules/elf.c"))
+        .file(basedir.join("libyara/modules/math.c"))
+        .file(basedir.join("libyara/modules/pe.c"))
+        .file(basedir.join("libyara/modules/pe_utils.c"))
+        .file(basedir.join("libyara/modules/tests.c"))
+        .file(basedir.join("libyara/modules/time.c"))
 
         .define("DEX_MODULE", "")
-        .file("../yara/libyara/modules/dex.c")
+        .file(basedir.join("libyara/modules/dex.c"))
 
         .define("DOTNET_MODULE", "")
-        .file("../yara/libyara/modules/dotnet.c")
+        .file(basedir.join("libyara/modules/dotnet.c"))
 
         .define("MACHO_MODULE", "")
-        .file("../yara/libyara/modules/macho.c");
+        .file(basedir.join("libyara/modules/macho.c"));
 
     // Use correct proc functions
     if cfg!(windows) {
         cc
-            .file("../yara/libyara/proc/windows.c")
+            .file(basedir.join("libyara/proc/windows.c"))
             .define("USE_WINDOWS_PROC", "");
     } else if cfg!(linux) {
         cc
-            .file("../yara/libyara/proc/linux.c")
+            .file(basedir.join("libyara/proc/linux.c"))
             .define("USE_LINUX_PROC", "");
     } else if cfg!(darwin) {
         cc
-            .file("../yara/libyara/proc/mach.c")
+            .file(basedir.join("libyara/proc/mach.c"))
             .define("USE_MACH_PROC", "");
     } else {
         cc
-            .file("../yara/libyara/proc/none.c")
+            .file(basedir.join("libyara/proc/none.c"))
             .define("USE_NO_PROC", "");
     }
 
@@ -90,7 +92,9 @@ pub fn build() {
 }
 
 fn include_dir() -> PathBuf {
-    std::fs::canonicalize("../yara/libyara/include").unwrap()
+    std::fs::canonicalize(
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("yara/libyara/include")
+    ).unwrap()
 }
 
 fn lib_dir() -> PathBuf {
