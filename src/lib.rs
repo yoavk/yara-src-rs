@@ -92,9 +92,7 @@ pub fn build() {
 }
 
 fn include_dir() -> PathBuf {
-    std::fs::canonicalize(
-        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("yara/libyara/include")
-    ).unwrap()
+    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("yara/libyara/include")
 }
 
 fn lib_dir() -> PathBuf {
