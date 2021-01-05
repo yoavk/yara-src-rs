@@ -1,6 +1,8 @@
 # yara-src
 
-This crate contains the logic to build VirusTotal's YARA. Inspired by openssl-src-rs
+This crate contains the logic to build [VirusTotal's YARA library](https://github.com/VirusTotal/yara). 
+
+Crate structure inspired by [openssl-src-rs](https://github.com/alexcrichton/openssl-src-rs).
 
 # License
 
