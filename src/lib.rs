@@ -13,6 +13,7 @@ pub fn build() {
         .file("../yara/libyara/atoms.c")
         .file("../yara/libyara/bitmask.c")
         .file("../yara/libyara/compiler.c")
+        .file("../yara/libyara/endian.c")
         .file("../yara/libyara/exec.c")
         .file("../yara/libyara/exefiles.c")
         .file("../yara/libyara/filemap.c")
