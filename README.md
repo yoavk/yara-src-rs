@@ -2,6 +2,8 @@
 
 This crate contains the logic to build [VirusTotal's YARA library](https://github.com/VirusTotal/yara). 
 
+Builds libyara v3.11.0.
+
 Crate structure inspired by [openssl-src-rs](https://github.com/alexcrichton/openssl-src-rs).
 
 # License
