@@ -3,7 +3,22 @@ name = "yara-src"
 version = "0.1.0"
 authors = ["Yoav Koplon <yoavkoplon@gmail.com>"]
 edition = "2018"
+license = "MIT/Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/yoavk/yara-src-rs"
+description = """
+Source of VirusTotal's YARA and logic to build it.
+"""
+exclude = [
+    '/yara/dist',
+    '/yara/docs',
+    '/yara/extra',
+    '/yara/m4',
+    '/yara/sandbox',
+    '/yara/tests',
+    '/yara/windows',
+]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+cc = "1.0"
