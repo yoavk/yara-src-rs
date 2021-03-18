@@ -59,16 +59,18 @@ pub fn build() {
         .define("MACHO_MODULE", "")
         .file(basedir.join("libyara/modules/macho.c"));
 
+    let target_os = std::env::var("CARGO_CFG_TARGET_OS").unwrap();
+
     // Use correct proc functions
-    if cfg!(windows) {
+    if target_os == "windows" {
         cc
             .file(basedir.join("libyara/proc/windows.c"))
             .define("USE_WINDOWS_PROC", "");
-    } else if cfg!(linux) {
+    } else if target_os == "linux" {
         cc
             .file(basedir.join("libyara/proc/linux.c"))
             .define("USE_LINUX_PROC", "");
-    } else if cfg!(darwin) {
+    } else if target_os == "darwin" {
         cc
             .file(basedir.join("libyara/proc/mach.c"))
             .define("USE_MACH_PROC", "");
@@ -78,7 +80,7 @@ pub fn build() {
             .define("USE_NO_PROC", "");
     }
 
-    if cfg!(windows) {
+    if target_os == "windows" {
         cc.define("NDEBUG", "1");
     }
     else {
